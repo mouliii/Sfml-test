@@ -1,0 +1,9 @@
+﻿  Animation.cpp
+c:\users\allu\documents\visual studio 2015\projects\sfml\sfml\animation.cpp(38): warning C4018: '>=': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  Player.cpp
+  Main.cpp
+  Generating Code...
+  Sfml.vcxproj -> C:\Users\Allu\Documents\Visual Studio 2015\Projects\Sfml\Debug\Sfml.exe
+  Sfml.vcxproj -> C:\Users\Allu\Documents\Visual Studio 2015\Projects\Sfml\Debug\Sfml.pdb (Partial PDB)
