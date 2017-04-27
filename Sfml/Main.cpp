@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <chrono>
 #include "Player.h"
+#include "Map.h"
 
 int main()
 {
@@ -13,6 +14,8 @@ int main()
 
 	// Load Player
 	Player player({ 100.0f,100.0f });
+	// Load map
+	Map map("1");
 
 	while (window.isOpen())
 	{
@@ -58,6 +61,7 @@ int main()
 
 		// Draw
 		player.Draw(window);
+		map.DrawMap(window);
 		// Update the window
 		window.display();
 	}
