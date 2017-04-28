@@ -1,7 +1,7 @@
 #include "Player.h"
 #include <assert.h>
 
-Player::Player(const sf::Vector2f & pos)
+Player::Player(const sf::Vector2f & pos, b2World* world)
 	:
 	pos(pos)
 {
@@ -10,7 +10,22 @@ Player::Player(const sf::Vector2f & pos)
 	animations[(int)AnimationIndex::Left] = Animation(path, 8, 0.1f, 0, 5 * 130, 120, 130);
 	animations[(int)AnimationIndex::IdleLeft] = Animation(path, 1, 10.1f, 0, 1 * 130, 120, 130);
 	animations[(int)AnimationIndex::IdleRight] = Animation(path, 1, 10.1f, 0, 3 * 130, 120, 130);
-	sprite.scale({ 0.5f,0.5f });
+	sprite.scale({ 0.2f,0.2f });
+
+	// make body
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(pos.x, pos.y);
+	body = world->CreateBody(&bodyDef);
+	body->SetBullet(true);
+	// fixture
+	b2PolygonShape boxShape;
+	boxShape.SetAsBox(12.0f / 2.0f, 13.0f / 2.0f);
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &boxShape;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+	fixture = body->CreateFixture(&fixtureDef);
 }
 
 void Player::Draw(sf::RenderTarget & rt) const
@@ -40,6 +55,7 @@ void Player::SetDir(const sf::Vector2f & dir)
 		}
 	}
 	vel = dir * speed;
+	body->SetLinearVelocity({vel.x,10});
 }
 
 void Player::Update(float dt)
@@ -47,5 +63,6 @@ void Player::Update(float dt)
 	pos += vel * dt;
 	animations[(int)curAnimation].Update(dt);
 	animations[(int)curAnimation].Apply(sprite);
-	sprite.setPosition(pos);
+	sprite.setPosition(body->GetPosition().x, body->GetPosition().y);
+	
 }
