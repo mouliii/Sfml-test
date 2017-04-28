@@ -6,7 +6,6 @@
 #include "Player.h"
 #include "Map.h"
 #include "Box.h"
-// comment
 
 int main()
 {
