@@ -75,8 +75,8 @@ Map::Tile::Tile(b2World* world,sf::Vector2f& pos_in, sf::Color c_in)
 	// texture ground
 	rect.setPosition(groundBody->GetPosition().x * SCALE, groundBody->GetPosition().y * SCALE);
 	rect.setFillColor(sf::Color::Blue);
-	//rect.setOrigin(dimension / 2.f , dimension / 2.f);
-	rect.setSize({dimension/SCALE,dimension/SCALE});
+	rect.setOrigin(dimension / 2.f , dimension / 2.f);
+	rect.setSize({dimension,dimension});
 	rect.setFillColor(c);
 }
 

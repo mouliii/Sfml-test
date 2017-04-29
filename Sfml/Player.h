@@ -10,6 +10,7 @@ public:
 	void Draw(sf::RenderTarget& rt)const;
 	void SetDir(const sf::Vector2f& dir);
 	void Update(float dt);
+	void Jump();
 public:
 	b2Body* GetBody() { return body; }
 	b2Fixture* GetFixture() { return fixture; }
@@ -27,6 +28,7 @@ private: // VARIABLES
 	static constexpr float speed = 135.0f;
 	const float height = 130.0f;
 	const float width = 120.0f;
+	bool jumping = false;
 private: // ANIMATION
 	sf::Vector2f pos;
 	sf::Vector2f vel = { 0.0f,0.0f };
@@ -34,10 +36,10 @@ private: // ANIMATION
 	sf::Sprite sprite;
 	Animation animations[(int)AnimationIndex::Count];
 	AnimationIndex curAnimation = AnimationIndex::IdleRight;
-	bool runRight = false;
 private:
 	b2Body* body = nullptr;
 	b2Fixture* fixture = nullptr;
 private:
 	const float SCALE = 100.0f;
+	const float spriteScale = 0.3f;
 };

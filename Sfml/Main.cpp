@@ -25,8 +25,8 @@ int main()
 	// Load Player
 	Player player({ 300.0f,200.0f }, world.get());
 	//view
-	sf::View view({player.GetBody()->GetPosition().x, player.GetBody()->GetPosition().y}, sf::Vector2f(640, 480));
-	//window.setView(view);
+	sf::View view({player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE}, sf::Vector2f(640, 480));
+	window.setView(view);
 	//box
 	Box box;
 	box.Init(world.get(), { 400.0f,400.0f }, { 10.0f,10.0f }, 3.0f);
@@ -57,7 +57,7 @@ int main()
 		sf::Vector2f dir = { 0.0f,0.0f };
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
-			dir.y -= 1.0f;
+			player.Jump();
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
@@ -76,8 +76,8 @@ int main()
 		player.Update(dt);
 		box.Update();
 		world->Step(dt, 6, 2);
-		view.setCenter(player.GetBody()->GetPosition().x, player.GetBody()->GetPosition().y);
-		//window.setView(view);
+		view.setCenter(player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE);
+		window.setView(view);
 		// Draw
 		player.Draw(window);
 		map.DrawMap(window);
