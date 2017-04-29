@@ -36,5 +36,5 @@ void Box::Update()
 {
 	sf::Vector2f position = { GetBody()->GetPosition().x ,GetBody()->GetPosition().y };
 	rect.setPosition(position);
-	rect.setRotation(body->GetAngle());
+	rect.setRotation(body->GetAngle()* (180.0f / 3.14f));
 }
