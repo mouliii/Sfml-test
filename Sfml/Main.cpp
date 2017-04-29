@@ -25,13 +25,13 @@ int main()
 	// Load Player
 	Player player({ 300.0f,200.0f }, world.get());
 	//view
-	sf::View view({player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE}, sf::Vector2f(640, 480));
+	sf::View view({player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE}, sf::Vector2f(800, 600));
 	window.setView(view);
 	//box
 	Box box;
 	box.Init(world.get(), { 400.0f,400.0f }, { 10.0f,10.0f }, 3.0f);
 	// Load map
-	Map map("2",world.get());
+	Map map("3",world.get());
 
 	while (window.isOpen())
 	{
