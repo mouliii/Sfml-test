@@ -38,4 +38,6 @@ private: // ANIMATION
 private:
 	b2Body* body = nullptr;
 	b2Fixture* fixture = nullptr;
+private:
+
 };

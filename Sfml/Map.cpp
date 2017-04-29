@@ -1,12 +1,12 @@
 #include "Map.h"
 #include <assert.h>
 
-Map::Map(std::string number)
+Map::Map(std::string number,b2World* world)
 {
-	InitMap(number);
+	InitMap(number,world);
 }
 
-void Map::InitMap(std::string level)
+void Map::InitMap(std::string level, b2World* world)
 {
 	lvl += std::string("levels//level") + std::string(level) + std::string(".txt");
 	std::ifstream myFile;
@@ -23,14 +23,14 @@ void Map::InitMap(std::string level)
 			{
 			case '#':
 			{
-				Tile tile(tilePos,sf::Color::Red );
+				Tile tile(world,tilePos,sf::Color::Red );
 				tiles.push_back(tile);
 				pos.x += dimension;
 			}
 			break;
 			case '¤':
 			{
-				Tile tile(tilePos, sf::Color::Green );
+				Tile tile(world,tilePos, sf::Color::Green );
 				tiles.push_back(tile);
 				pos.x += dimension;
 			}
@@ -61,14 +61,21 @@ void Map::DrawMap(sf::RenderTarget& rt)
 	}
 }
 
-Map::Tile::Tile(sf::Vector2f& pos_in, sf::Color c_in)
+Map::Tile::Tile(b2World* world,sf::Vector2f& pos_in, sf::Color c_in)
 	:
 	pos(pos_in),
 	c(c_in)
 {
-	rect.setPosition(pos_in);
-	rect.setSize(sf::Vector2f(dimension,dimension));
-	rect.setOrigin(sf::Vector2f(dimension, dimension) / 2.0f);
+	b2BodyDef groundBodyDef;
+	groundBodyDef.position.Set(pos_in.x,pos_in.y);
+	b2Body* groundBody = world->CreateBody(&groundBodyDef);
+	b2PolygonShape groundBox;
+	groundBox.SetAsBox(dimension/2,dimension/2);
+	groundBody->CreateFixture(&groundBox, 0.0f);
+	// texture ground
+	rect.setPosition(pos_in.x,pos_in.y);
+	rect.setFillColor(sf::Color::Blue);
+	rect.setSize({dimension,dimension});
 }
 
 void Map::Tile::DrawTile(sf::RenderTarget& rt)

@@ -10,7 +10,7 @@ Player::Player(const sf::Vector2f & pos, b2World* world)
 	animations[(int)AnimationIndex::Left] = Animation(path, 8, 0.1f, 0, 5 * 130, 120, 130);
 	animations[(int)AnimationIndex::IdleLeft] = Animation(path, 1, 10.1f, 0, 1 * 130, 120, 130);
 	animations[(int)AnimationIndex::IdleRight] = Animation(path, 1, 10.1f, 0, 3 * 130, 120, 130);
-	sprite.scale({ 0.2f,0.2f });
+	sprite.scale({ 0.5f,0.5f });
 
 	// make body
 	b2BodyDef bodyDef;
@@ -20,7 +20,7 @@ Player::Player(const sf::Vector2f & pos, b2World* world)
 	body->SetBullet(true);
 	// fixture
 	b2PolygonShape boxShape;
-	boxShape.SetAsBox(12.0f / 2.0f, 13.0f / 2.0f);
+	boxShape.SetAsBox(120.0f / 2.0f / 0.5f, 130.0f / 2.0f / 0.5f);
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &boxShape;
 	fixtureDef.density = 1.0f;
@@ -55,7 +55,7 @@ void Player::SetDir(const sf::Vector2f & dir)
 		}
 	}
 	vel = dir * speed;
-	body->SetLinearVelocity({vel.x,10});
+	body->SetLinearVelocity({vel.x,vel.y});
 }
 
 void Player::Update(float dt)

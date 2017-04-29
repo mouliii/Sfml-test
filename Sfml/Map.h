@@ -10,8 +10,8 @@ class Map
 {
 	class Tile;
 public:
-	Map(std::string number);
-	void InitMap(std::string level);
+	Map(std::string number, b2World* world);
+	void InitMap(std::string level, b2World* world);
 	void DrawMap(sf::RenderTarget& rt);
 private:
 	std::vector<Tile> tiles;
@@ -23,14 +23,16 @@ private:
 	class Tile
 	{
 	public:
-		Tile(sf::Vector2f& pos_in, sf::Color c_in);
+		Tile(b2World* world, sf::Vector2f& pos_in, sf::Color c_in);
 		void DrawTile(sf::RenderTarget& rt);
 		sf::RectangleShape GetRect();
+		b2BodyDef* GetBody() {return groundBodyDef; }
 	private:
 		sf::Vector2f pos;
 		sf::RectangleShape rect;
 		sf::Color c;
-		b2BodyDef tileBody;
-		b2PolygonShape tileBox;
+		b2World* world = nullptr;
+		b2BodyDef* groundBodyDef = nullptr;
+		b2PolygonShape* groundBox = nullptr;
 	};
 };
