@@ -19,6 +19,7 @@ private:
 	std::string lvl;
 protected:
 	static constexpr float dimension = 32.0f;
+	static constexpr float SCALE = 100.0f;
 private:
 	class Tile
 	{

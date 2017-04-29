@@ -7,6 +7,8 @@
 #include "Map.h"
 #include "Box.h"
 
+const float SCALE = 100.0f;
+
 int main()
 {
 	// Create the main window
@@ -21,15 +23,15 @@ int main()
 	// some bs
 
 	// Load Player
-	Player player({ 500.0f,550.0f }, world.get());
+	Player player({ 300.0f,200.0f }, world.get());
 	//view
 	sf::View view({player.GetBody()->GetPosition().x, player.GetBody()->GetPosition().y}, sf::Vector2f(640, 480));
 	//window.setView(view);
 	//box
 	Box box;
-	box.Init(world.get(), { 100.0f,100.0f }, { 1.0f,1.0f }, 3.0f);
+	box.Init(world.get(), { 400.0f,400.0f }, { 10.0f,10.0f }, 3.0f);
 	// Load map
-	Map map("1",world.get());
+	Map map("2",world.get());
 
 	while (window.isOpen())
 	{

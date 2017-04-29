@@ -39,5 +39,5 @@ private:
 	b2Body* body = nullptr;
 	b2Fixture* fixture = nullptr;
 private:
-
+	const float SCALE = 100.0f;
 };
