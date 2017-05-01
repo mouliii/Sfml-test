@@ -1,4 +1,4 @@
 ﻿  Player.cpp
-c:\users\allu\source\repos\sfml-test\sfml\player.cpp(96): warning C4800: 'b2ContactEdge *': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\allu\source\repos\sfml-test\sfml\player.cpp(97): warning C4800: 'b2ContactEdge *': forcing value to bool 'true' or 'false' (performance warning)
   Sfml.vcxproj -> C:\Users\Allu\Source\Repos\Sfml-test\x64\Debug\Sfml.exe
   Sfml.vcxproj -> C:\Users\Allu\Source\Repos\Sfml-test\x64\Debug\Sfml.pdb (Partial PDB)

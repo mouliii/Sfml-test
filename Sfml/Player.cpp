@@ -20,6 +20,7 @@ Player::Player(const sf::Vector2f & pos, b2World* world)
 	body = world->CreateBody(&bodyDef);
 	//body->SetGravityScale(0.3f);
 	body->SetBullet(true);
+	//body->SetFixedRotation(true);
 	// fixture
 	b2PolygonShape boxShape;
 	boxShape.SetAsBox(120.0f / 2.0f / SCALE * spriteScale, 130.0f / 2.0f / SCALE * spriteScale);
@@ -73,7 +74,7 @@ void Player::SetDir(const sf::Vector2f & dir)
 	}
 	vel.y += 10.f;
 	vel = dir * speed;
-	body->ApplyForce(b2Vec2(dir.x, 0), body->GetWorldCenter(),false);
+	body->ApplyForce(b2Vec2(dir.x, 0), body->GetWorldCenter(),true);
 	std::cout << vel.x << std::endl;
 }
 
