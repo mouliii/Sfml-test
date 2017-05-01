@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D\Box2D.h>
 #include "Animation.h"
+#include <iostream>
 
 
 class Player
@@ -11,6 +12,7 @@ public:
 	void SetDir(const sf::Vector2f& dir);
 	void Update(float dt);
 	void Jump();
+	bool CheckCollision();
 public:
 	b2Body* GetBody() { return body; }
 	b2Fixture* GetFixture() { return fixture; }
@@ -25,10 +27,11 @@ private:
 		Count
 	};
 private: // VARIABLES
-	static constexpr float speed = 135.0f;
+	static constexpr float speed = 5.0f;
 	const float height = 130.0f;
 	const float width = 120.0f;
 	bool jumping = false;
+	bool canJump = true;
 private: // ANIMATION
 	sf::Vector2f pos;
 	sf::Vector2f vel = { 0.0f,0.0f };

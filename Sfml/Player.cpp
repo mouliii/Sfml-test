@@ -18,6 +18,7 @@ Player::Player(const sf::Vector2f & pos, b2World* world)
 	bodyDef.type = b2_dynamicBody;
 	bodyDef.position.Set(pos.x/ SCALE * spriteScale, pos.y / SCALE * spriteScale);
 	body = world->CreateBody(&bodyDef);
+	//body->SetGravityScale(0.3f);
 	body->SetBullet(true);
 	// fixture
 	b2PolygonShape boxShape;
@@ -55,17 +56,25 @@ void Player::SetDir(const sf::Vector2f & dir)
 			curAnimation = AnimationIndex::IdleLeft;
 		}
 	}
-	vel = dir * speed;
-	vel.x = vel.x / 20.f;
-	if (!jumping)
+	if (jumping && canJump)
 	{
-		body->SetLinearVelocity({ vel.x,10.f });
+		//body->SetLinearVelocity({ vel.x,-5.f});
+		body->ApplyForce(b2Vec2(0, -5.f), body->GetWorldCenter(), false);
+		
+		canJump = false;
+		jumping = false;
 	}
 	else
 	{
-		body->SetLinearVelocity({ vel.x,-20.f });
-		jumping = false;
+		if (CheckCollision() )
+		{
+			canJump = true;
+		}
 	}
+	vel.y += 10.f;
+	vel = dir * speed;
+	body->ApplyForce(b2Vec2(dir.x, 0), body->GetWorldCenter(),false);
+	std::cout << vel.x << std::endl;
 }
 
 void Player::Update(float dt)
@@ -80,4 +89,9 @@ void Player::Update(float dt)
 void Player::Jump()
 {
 	jumping = true;
+}
+
+bool Player::CheckCollision()
+{
+	return body->GetContactList();
 }

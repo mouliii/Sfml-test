@@ -15,7 +15,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
 	window.setFramerateLimit(60);
 	// Box2d World
-	b2Vec2 gravity(0.0f, 10.0f);
+	b2Vec2 gravity(0.0f, 8.0f);
 	std::unique_ptr<b2World> world;
 	world = std::make_unique<b2World>(gravity);
 	// time
@@ -23,7 +23,7 @@ int main()
 	// some bs
 
 	// Load Player
-	Player player({ 300.0f,200.0f }, world.get());
+	Player player({ 300.0f,400.0f }, world.get());
 	//view
 	sf::View view({player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE}, sf::Vector2f(800, 600));
 	window.setView(view);
@@ -58,6 +58,7 @@ int main()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
 			player.Jump();
+			//dir.y -= 1.0f;
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		{
@@ -75,7 +76,7 @@ int main()
 		// Update
 		player.Update(dt);
 		box.Update();
-		world->Step(dt, 6, 2);
+		world->Step(1.f/60.f, 6, 2);
 		view.setCenter(player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE);
 		window.setView(view);
 		// Draw
