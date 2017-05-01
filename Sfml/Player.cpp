@@ -75,7 +75,6 @@ void Player::SetDir(const sf::Vector2f & dir)
 	vel.y += 10.f;
 	vel = dir * speed;
 	body->ApplyForce(b2Vec2(dir.x, 0), body->GetWorldCenter(),true);
-	std::cout << vel.x << std::endl;
 }
 
 void Player::Update(float dt)

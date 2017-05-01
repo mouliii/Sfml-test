@@ -31,7 +31,7 @@ int main()
 	Box box;
 	box.Init(world.get(), { 400.0f,400.0f }, { 10.0f,10.0f }, 3.0f);
 	// Load map
-	Map map("3",world.get());
+	Map map("4",world.get());
 
 	while (window.isOpen())
 	{
