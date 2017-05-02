@@ -19,15 +19,15 @@ Player::Player(const sf::Vector2f & pos, b2World* world)
 	bodyDef.position.Set(pos.x/ SCALE * spriteScale, pos.y / SCALE * spriteScale);
 	body = world->CreateBody(&bodyDef);
 	//body->SetGravityScale(0.3f);
-	body->SetBullet(true);
-	//body->SetFixedRotation(true);
+	//body->SetBullet(true);
+	body->SetFixedRotation(true);
 	// fixture
-	b2PolygonShape boxShape;
-	boxShape.SetAsBox(120.0f / 2.0f / SCALE * spriteScale, 130.0f / 2.0f / SCALE * spriteScale);
+	b2CircleShape circleShape;
+	circleShape.m_radius = 60.0f / SCALE * spriteScale;
 	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &boxShape;
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.3f;
+	fixtureDef.shape = &circleShape;
+	fixtureDef.density = 1.5f;
+	fixtureDef.friction = 0.7f;
 	fixture = body->CreateFixture(&fixtureDef);
 }
 
