@@ -23,13 +23,22 @@ int main()
 	// some bs
 
 	// Load Player
-	Player player({ 300.0f,400.0f }, world.get());
+	Player player({ 200.0f,100.0f }, world.get());
 	//view
-	sf::View view({player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE}, sf::Vector2f(800, 600));
+	sf::View view({ player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE }, sf::Vector2f(800, 600));
 	window.setView(view);
 	//box
-	Box box;
-	box.Init(world.get(), { 400.0f,400.0f }, { 10.0f,10.0f }, 3.0f);
+	std::vector<Box> boxes;
+	{
+	int a = 1;
+	while (a < 6)
+	{
+			Box box;
+			box.Init(world.get(), { 200.0f,400.0f }, { 20.0f,20.0f }, 3.0f);
+			boxes.push_back(box);
+			a++;
+		}
+	}
 	// Load map
 	Map map("4",world.get());
 
@@ -75,14 +84,20 @@ int main()
 		player.SetDir(dir);
 		// Update
 		player.Update(dt);
-		box.Update();
+		for (auto& b : boxes)
+		{
+			b.Update();
+		}
 		world->Step(1.f/60.f, 6, 2);
 		view.setCenter(player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE);
 		window.setView(view);
 		// Draw
 		player.Draw(window);
 		map.DrawMap(window);
-		box.Draw(window);
+		for (auto& b : boxes)
+		{
+			b.Draw(window);
+		}
 		// Update the window
 		window.display();
 	}

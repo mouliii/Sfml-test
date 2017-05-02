@@ -25,6 +25,7 @@ void Box::Init(b2World* world, const b2Vec2 & pos, const b2Vec2 & dimensions, fl
 	rect.setPosition(body->GetPosition().x * SCALE, body->GetPosition().y * SCALE);
 	rect.setFillColor(sf::Color::Blue);
 	rect.setSize({ dimensions.x,dimensions.y });
+	rect.setOrigin(dimensions.x / 2, dimensions.y / 2);
 }
 
 void Box::Draw(sf::RenderTarget & rt)
@@ -36,5 +37,5 @@ void Box::Update()
 {
 	sf::Vector2f position = { GetBody()->GetPosition().x * SCALE ,GetBody()->GetPosition().y * SCALE };
 	rect.setPosition(position);
-	rect.setRotation(body->GetAngle()* (180.0f / 3.14f));
+	rect.setRotation(body->GetAngle() * (180.0f / 3.14f));
 }
