@@ -15,7 +15,7 @@ public:
 private:
 	b2Body* body = nullptr;
 	b2Fixture* fixture = nullptr;
-	std::shared_ptr<sf::Texture> pTex;
+	sf::Texture texture;
 	sf::RectangleShape rect;
 private:
 	const float SCALE = 100.0f;
