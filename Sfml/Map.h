@@ -5,6 +5,7 @@
 #include <fstream>
 #include <SFML\Graphics.hpp>
 #include <Box2D\Box2D.h>
+#include "Box.h"
 
 class Map
 {
@@ -13,8 +14,10 @@ public:
 	Map(std::string number, b2World* world);
 	void InitMap(std::string level, b2World* world);
 	void DrawMap(sf::RenderTarget& rt);
+	void UpdateBoxes();
 private:
 	std::vector<Tile> tiles;
+	std::vector<Box> boxes;
 	sf::Vector2f pos = { 0,12 };
 	std::string lvl;
 protected:

@@ -27,7 +27,7 @@ void Map::InitMap(std::string level, b2World* world)
 				tiles.push_back(tile);
 				pos.x += dimension;
 			}
-			break;
+				break;
 			case '¤':
 			{
 				Tile tile(world,tilePos, sf::Color::Green );
@@ -35,6 +35,15 @@ void Map::InitMap(std::string level, b2World* world)
 				pos.x += dimension;
 			}
 			break;
+				case 'B':
+			{
+					Box box;
+					box.Init(world, { tilePos.x,tilePos.y }, { 20.0f,20.0f }, 0.3f);
+					boxes.push_back(box);
+					pos.x += dimension;
+			}
+				break;
+
 			case ' ':
 				pos.x += dimension;
 				break;
@@ -58,6 +67,18 @@ void Map::DrawMap(sf::RenderTarget& rt)
 	for (auto& tile : tiles)
 	{
 		tile.DrawTile(rt);
+	}
+	for (auto& box : boxes)
+	{
+		box.Draw(rt);
+	}
+}
+
+void Map::UpdateBoxes()
+{
+	for (auto& box : boxes)
+	{
+		box.Update();
 	}
 }
 
