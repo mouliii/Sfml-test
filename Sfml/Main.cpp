@@ -22,7 +22,7 @@ int main()
 	// some bs
 
 	// Load Player
-	Player player({ 400.0f,100.0f }, world.get());
+	Player player({ 400.0f,2000.0f }, world.get());
 	//view
 	sf::View view({ player.GetBody()->GetPosition().x * SCALE, player.GetBody()->GetPosition().y * SCALE }, sf::Vector2f(800, 600));
 	window.setView(view);

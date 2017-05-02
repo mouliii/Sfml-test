@@ -23,14 +23,16 @@ void Map::InitMap(std::string level, b2World* world)
 			{
 			case '#':
 			{
-				Tile tile(world,tilePos,sf::Color::Red );
+				Tile tile(world,tilePos );
+				tile.SetTextureRect(sf::IntRect(0, 0, 32, 32));
 				tiles.push_back(tile);
 				pos.x += dimension;
 			}
 				break;
 			case '¤':
 			{
-				Tile tile(world,tilePos, sf::Color::Green );
+				Tile tile(world,tilePos );
+				tile.SetTextureRect(sf::IntRect(3*32, 0, 32, 32));
 				tiles.push_back(tile);
 				pos.x += dimension;
 			}
@@ -38,7 +40,7 @@ void Map::InitMap(std::string level, b2World* world)
 				case 'B':
 			{
 					Box box;
-					box.Init(world, { tilePos.x,tilePos.y }, { 20.0f,20.0f }, 0.3f);
+					box.Init(world, { tilePos.x,tilePos.y }, { 32.0f,32.0f }, 0.3f);
 					boxes.push_back(box);
 					pos.x += dimension;
 			}
@@ -68,6 +70,11 @@ void Map::DrawMap(sf::RenderTarget& rt)
 	{
 		tile.DrawTile(rt);
 	}
+	for (int i = 0; i < tiles.size(); i++)
+	{
+		tiles[i].SetTexture();
+		tiles[i].DrawTile(rt);
+	}
 	for (auto& box : boxes)
 	{
 		box.Draw(rt);
@@ -82,10 +89,9 @@ void Map::UpdateBoxes()
 	}
 }
 
-Map::Tile::Tile(b2World* world,sf::Vector2f& pos_in, sf::Color c_in)
+Map::Tile::Tile(b2World* world,sf::Vector2f& pos_in)
 	:
-	pos(pos_in),
-	c(c_in)
+	pos(pos_in)
 {
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(pos_in.x / SCALE,pos_in.y / SCALE);
@@ -95,10 +101,9 @@ Map::Tile::Tile(b2World* world,sf::Vector2f& pos_in, sf::Color c_in)
 	groundBody->CreateFixture(&groundBox, 0.0f);
 	// texture ground
 	rect.setPosition(groundBody->GetPosition().x * SCALE, groundBody->GetPosition().y * SCALE);
-	rect.setFillColor(sf::Color::Blue);
 	rect.setOrigin(dimension / 2.f , dimension / 2.f);
 	rect.setSize({dimension,dimension});
-	rect.setFillColor(c);
+	texture.loadFromFile("Textures\\tileTextures.png");
 }
 
 void Map::Tile::DrawTile(sf::RenderTarget& rt)
@@ -109,4 +114,14 @@ void Map::Tile::DrawTile(sf::RenderTarget& rt)
 sf::RectangleShape Map::Tile::GetRect()
 {
 	return rect;
+}
+
+void Map::Tile::SetTextureRect(sf::IntRect irect)
+{
+	rect.setTextureRect(irect);
+}
+
+void Map::Tile::SetTexture()
+{
+	rect.setTexture(&texture);
 }

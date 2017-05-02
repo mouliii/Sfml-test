@@ -27,14 +27,17 @@ private:
 	class Tile
 	{
 	public:
-		Tile(b2World* world, sf::Vector2f& pos_in, sf::Color c_in);
+		Tile(b2World* world, sf::Vector2f& pos_in);
 		void DrawTile(sf::RenderTarget& rt);
 		sf::RectangleShape GetRect();
 		b2BodyDef* GetBody() {return groundBodyDef; }
+		void SetTexture();
+		void SetTextureRect(sf::IntRect irect);
 	private:
 		sf::Vector2f pos;
 		sf::RectangleShape rect;
-		sf::Color c;
+		sf::Texture texture;
+		sf::IntRect irect;
 		b2World* world = nullptr;
 		b2BodyDef* groundBodyDef = nullptr;
 		b2PolygonShape* groundBox = nullptr;
